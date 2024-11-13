@@ -1,0 +1,3 @@
+C:/Users/jujuk/CLionProjects/Prosit2/cmake-build-debug/CMakeFiles/Prosit2.dir
+C:/Users/jujuk/CLionProjects/Prosit2/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/jujuk/CLionProjects/Prosit2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
