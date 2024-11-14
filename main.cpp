@@ -9,6 +9,8 @@ private:
     string fichiersource;
     string fichierdestination;
     string mot;
+    char cleDeChiffrement;
+    int decalageCesar;
     int niveauCryptage;
 
 
@@ -42,13 +44,13 @@ private:
     }
 
     // Méthode de chiffrement César
-    string chiffrementCesar(int decalage) {
+    string chiffrementCesar() {
         string resultat = "";
         for (char c : mot) {
             if (isupper(c)) {
-                resultat += char((c - 'A' + decalage) % 26 + 'A');
+                resultat += char((c - 'A' + decalageCesar) % 26 + 'A');
             } else if (islower(c)) {
-                resultat += char((c - 'a' + decalage) % 26 + 'a');
+                resultat += char((c - 'a' + decalageCesar) % 26 + 'a');
             } else {
                 resultat += c;
             }
@@ -57,17 +59,14 @@ private:
         return mot;
     }
 
-    string DechiffrementCesar(int decalage) {
+    string DechiffrementCesar() {
         string resultat = "";
         for (char c : mot) {
             if (isupper(c)) {
-                // Décale les majuscules en sens inverse
-                resultat += char((c - 'A' - decalage + 26) % 26 + 'A');
+                resultat += char((c - 'A' - decalageCesar + 26) % 26 + 'A');
             } else if (islower(c)) {
-                // Décale les minuscules en sens inverse
-                resultat += char((c - 'a' - decalage + 26) % 26 + 'a');
+                resultat += char((c - 'a' - decalageCesar + 26) % 26 + 'a');
             } else {
-                // Conserve les autres caractères (espaces, ponctuation)
                 resultat += c;
             }
         }
@@ -75,10 +74,10 @@ private:
         return mot;
     }
 
-    string TrucXOR(char cle) {
+    string TrucXOR() {
         string resultat = "";
         for (char c : mot) {
-            resultat += (c ^ cle);
+            resultat += (c ^ cleDeChiffrement);
         }
         mot = resultat;
         return mot;
@@ -97,7 +96,7 @@ public:
             cout << "niveau 2 : Chiffrement XOR " << endl;
             cout << "niveau 3 : Chiffrement Cesar & XOR " << endl;
             cin >> niveauCryptage;
-            Chiffrement(3, 'F');
+            Chiffrement();
         }
         if (niveauCryptage == 5) {
             cout << "merci de rentrer le niveau de Chiffrement/Dechiffrement : " << endl;
@@ -105,37 +104,53 @@ public:
             cout << "niveau 2 : Dechiffrement XOR " << endl;
             cout << "niveau 3 : Dechiffrement Cesar & XOR " << endl;
             cin >> niveauCryptage;
-            Dechiffrement(3, 'F');
+            Dechiffrement();
         }
 
     }
 
-    void Chiffrement(int decalage, char cle) {
+    void Chiffrement() {
         recupfichier();
         if(niveauCryptage == 1) {
-            chiffrementCesar(decalage);
+            cout << "Indiquer le nombre de decalge Cesar pour le chiffrement" << endl;
+            cin >> decalageCesar;
+            chiffrementCesar();
         }
         if(niveauCryptage == 2) {
-            TrucXOR(cle);
+            cout << "Indiquer la cle de chiffrement Xor" << endl;
+            cin >> cleDeChiffrement;
+            TrucXOR();
         }
         if(niveauCryptage == 3) {
-            chiffrementCesar(decalage);
-            TrucXOR(cle);
+            cout << "Indiquer le nombre de decalge Cesar" << endl;
+            cin >> decalageCesar;
+            cout << "Indiquer la cle de chiffrement Xor" << endl;
+            cin >> cleDeChiffrement;
+            chiffrementCesar();
+            TrucXOR();
         }
         Ecriture();
     }
 
-    void Dechiffrement(int decalage, char cle) {
+    void Dechiffrement() {
         recupfichier();
         if(niveauCryptage == 1) {
-            DechiffrementCesar(decalage);
+            cout << "Indiquer le nombre de decalge Cesar pour le Dechiffrement" << endl;
+            cin >> decalageCesar;
+            DechiffrementCesar();
         }
         if(niveauCryptage == 2) {
-            TrucXOR(cle);
+            cout << "Indiquer la cle de chiffrement Xor" << endl;
+            cin >> cleDeChiffrement;
+            TrucXOR();
         }
         if(niveauCryptage == 3) {
-            TrucXOR(cle);
-            DechiffrementCesar(decalage);
+            cout << "Indiquer le nombre de decalge Cesar" << endl;
+            cin >> decalageCesar;
+            cout << "Indiquer la cle de chiffrement Xor" << endl;
+            cin >> cleDeChiffrement;
+            TrucXOR();
+            DechiffrementCesar();
         }
         Ecriture();
     }
